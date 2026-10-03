@@ -65,3 +65,12 @@ nav.links a {
 }
 footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 34px; }
 footer a { color: var(--muted); }
+
+ul.profiles { list-style: none; padding: 0; }
+ul.profiles li { padding: 10px 0; border-top: 1px solid var(--line); overflow: hidden; }
+ul.profiles li:first-child { border-top: none; }
+ul.profiles .note { color: var(--muted); }
+a.download {
+  float: right; margin: 2px 0 6px 14px; text-decoration: none; font-weight: 600; font-size: 14px;
+  color: var(--bg); background: var(--accent); padding: 6px 14px; border-radius: 999px;
+}
