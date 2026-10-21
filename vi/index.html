@@ -52,6 +52,7 @@
 <body>
 <main>
 <div class="hero">
+  <div class="hero-pill">⏱️ Theo dõi hạn mức Claude Code trên thanh menu · Không lo đứt gãy công việc</div>
   <img class="icon" src="../icon-512.png" alt="" width="112" height="112">
   <h1>Usagette</h1>
   <p class="tagline">Giới hạn sử dụng của bạn, trên thanh menu, kèm âm thanh khi chúng tăng.</p>
@@ -106,6 +107,51 @@
   </details><!-- /family:nav -->
   </nav>
 </div>
+<div class="demo-wrapper" id="demo">
+  <div class="usagette-stage" role="group" aria-label="Bản demo tương tác: đếm ngược hạn mức phiên 5 giờ và đo tốc độ tiêu thụ token">
+    <div class="usagette-meter-card">
+      <div class="usagette-pct-hero" id="ugPct">68%</div>
+      <div class="usagette-reset-pill" id="ugReset">Hồi phục sau 1h 42p</div>
+      <div class="usagette-bar-track">
+        <div class="usagette-bar-fill" id="ugFill"></div>
+      </div>
+    </div>
+    <div class="demo-controls">
+      <button class="app-chip active" data-rate="heavy">Opus 4.5 (Tốn nhiều)</button>
+      <button class="app-chip" data-rate="med">Sonnet 4.5 (Cân bằng)</button>
+      <button class="app-chip" data-rate="light">Haiku (Siêu nhẹ)</button>
+    </div>
+    <div class="demo-controls">
+      <button class="tockette-action-btn" id="ugPromptBtn">Mô phỏng Prompt lớn (+15k)</button>
+      <button class="app-chip" id="ugResetBtn">Đặt lại phiên</button>
+    </div>
+    <span class="demo-hint">💡 Bấm Mô phỏng Prompt lớn để xem vòng đo mức sử dụng token tăng dần theo thời gian thực</span>
+  </div>
+  <p class="demo-note">Mô phỏng trực quan. Usagette đọc thông số phiên Claude Code ngay trên menu bar Mac mà không cần API key.</p>
+</div>
+<script>
+(function() {
+  var pct = document.getElementById('ugPct'), fill = document.getElementById('ugFill');
+  var promptBtn = document.getElementById('ugPromptBtn'), resetBtn = document.getElementById('ugResetBtn');
+  var currentPct = 68;
+
+  promptBtn.addEventListener('click', function() {
+    currentPct = Math.min(96, currentPct + 14);
+    pct.textContent = currentPct + '%';
+    fill.style.width = currentPct + '%';
+    if (currentPct >= 85) {
+      fill.style.background = 'linear-gradient(90deg, #f59e0b, #ef4444)';
+    }
+  });
+
+  resetBtn.addEventListener('click', function() {
+    currentPct = 68;
+    pct.textContent = '68%';
+    fill.style.width = '68%';
+    fill.style.background = 'linear-gradient(90deg, #8b5cf6, #ec4899)';
+  });
+})();
+</script>
 
 <!-- family:shot --><figure class="shot"><img src="../img/hero.jpg" alt="" width="1600" height="860"></figure><!-- /family:shot -->
 <section class="card">
@@ -135,6 +181,48 @@
   <p class="note">Để thêm một hồ sơ, hãy mở Cài đặt › Hồ sơ âm thanh trong Usagette rồi chọn Nhập…, hoặc thả tệp đã tải về vào đó. Bạn cũng có thể giải nén rồi nhấp đúp vào hồ sơ.</p>
 </section>
 
+<section class="card comparison-card" id="comparison">
+  <h2>Bị khóa bất ngờ so with Usagette</h2>
+  <p class="section-lead">Chủ động kiểm soát hạn mức phiên và hạn mức tuần của Claude Code ngay trên thanh menu.</p>
+  <div class="table-scroll">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Đặc tính</th>
+          <th>Tự đoán mò / Web Dashboard</th>
+          <th class="highlight-col">Usagette</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Bị khóa bất ngờ</strong></td>
+          <td>Đang code dở thì báo lỗi 'Đã chạm trần hạn mức đến 15:00'</td>
+          <td class="highlight-col"><strong>Đồng hồ đếm ngược trực quan trên menu bar giúp phân bổ công việc</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Đọc trạng thái CLI</strong></td>
+          <td>Phải mở tab web kiểm tra thủ công mất thời gian</td>
+          <td class="highlight-col"><strong>Tự động đọc số liệu trạng thái từ dòng lệnh Claude Code trên máy</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Mức độ tốn token</strong></td>
+          <td>Không biết model nào đang ngốn hạn mức nhiều nhất</td>
+          <td class="highlight-col"><strong>Nhận biết rõ ràng tốc độ đốt token giữa Opus, Sonnet và Haiku</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Cảnh báo chủ động</strong></td>
+          <td>Chỉ biết khi prompt bị từ chối giữa chừng</td>
+          <td class="highlight-col"><strong>Âm thanh chuông nhẹ và thông báo trước khi hạn mức chạm trần</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Bảo mật & Cài đặt</strong></td>
+          <td>Đòi hỏi nhập API key hay đăng nhập tài khoản đám mây</td>
+          <td class="highlight-col"><strong>Không cần API key; chỉ đọc dữ liệu hiển thị nội bộ trên máy</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 <section class="card">
   <h2>Quyền riêng tư trong một đoạn</h2>
   <p>Usagette không truy cập mạng, không có tài khoản, không theo dõi, và không có gì rời khỏi Mac của bạn. Ứng dụng đọc một tệp do tập lệnh dòng trạng thái của nó ghi, trong thư mục <code>.claude</code> mà bạn cho phép dùng. <a href="privacy.html">Chính sách quyền riêng tư</a> đầy đủ nói điều tương tự chi tiết hơn.</p>

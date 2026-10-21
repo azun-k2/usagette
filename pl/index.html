@@ -52,6 +52,7 @@
 <body>
 <main>
 <div class="hero">
+  <div class="hero-pill">⏱️ Claude usage limits in your menu bar · Stay ahead of rate limits</div>
   <img class="icon" src="../icon-512.png" alt="" width="112" height="112">
   <h1>Usagette</h1>
   <p class="tagline">Twoje limity w pasku menu, z dźwiękiem, gdy rosną.</p>
@@ -106,6 +107,51 @@
   </details><!-- /family:nav -->
   </nav>
 </div>
+<div class="demo-wrapper" id="demo">
+  <div class="usagette-stage" role="group" aria-label="Interactive demo: Claude Code session limit countdown and token burn gauge">
+    <div class="usagette-meter-card">
+      <div class="usagette-pct-hero" id="ugPct">68%</div>
+      <div class="usagette-reset-pill" id="ugReset">Limit resets in 1h 42m</div>
+      <div class="usagette-bar-track">
+        <div class="usagette-bar-fill" id="ugFill"></div>
+      </div>
+    </div>
+    <div class="demo-controls">
+      <button class="app-chip active" data-rate="heavy">Opus 4.5 (Heavy)</button>
+      <button class="app-chip" data-rate="med">Sonnet 4.5 (Balanced)</button>
+      <button class="app-chip" data-rate="light">Haiku (Fast)</button>
+    </div>
+    <div class="demo-controls">
+      <button class="tockette-action-btn" id="ugPromptBtn">Simulate Large Prompt (+15k)</button>
+      <button class="app-chip" id="ugResetBtn">Reset Session</button>
+    </div>
+    <span class="demo-hint">💡 Click Simulate Large Prompt to watch the live token burn gauge approach threshold</span>
+  </div>
+  <p class="demo-note">Visual simulation. Usagette monitors local Claude Code session limits directly in your Mac menu bar without cloud API keys.</p>
+</div>
+<script>
+(function() {
+  var pct = document.getElementById('ugPct'), fill = document.getElementById('ugFill');
+  var promptBtn = document.getElementById('ugPromptBtn'), resetBtn = document.getElementById('ugResetBtn');
+  var currentPct = 68;
+
+  promptBtn.addEventListener('click', function() {
+    currentPct = Math.min(96, currentPct + 14);
+    pct.textContent = currentPct + '%';
+    fill.style.width = currentPct + '%';
+    if (currentPct >= 85) {
+      fill.style.background = 'linear-gradient(90deg, #f59e0b, #ef4444)';
+    }
+  });
+
+  resetBtn.addEventListener('click', function() {
+    currentPct = 68;
+    pct.textContent = '68%';
+    fill.style.width = '68%';
+    fill.style.background = 'linear-gradient(90deg, #8b5cf6, #ec4899)';
+  });
+})();
+</script>
 
 <!-- family:shot --><figure class="shot"><img src="../img/hero.jpg" alt="" width="1600" height="860"></figure><!-- /family:shot -->
 <section class="card">
@@ -135,6 +181,48 @@
   <p class="note">Aby dodać profil, otwórz w Usagette Ustawienia › Profile dźwięków i wybierz Importuj… albo upuść tam pobrany plik. Możesz też go rozpakować i dwukrotnie kliknąć profil.</p>
 </section>
 
+<section class="card comparison-card" id="comparison">
+  <h2>Unexpected lockouts vs Usagette</h2>
+  <p class="section-lead">Monitor your Claude Code session and weekly limits directly from the macOS menu bar.</p>
+  <div class="table-scroll">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>Manual Guesswork / Web Dashboard</th>
+          <th class="highlight-col">Usagette</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sudden Lockouts</strong></td>
+          <td>Mid-coding error: 'Usage limit reached until 3:00 PM'</td>
+          <td class="highlight-col"><strong>Live countdown in menu bar so you pace complex programming tasks</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Status Line Integration</strong></td>
+          <td>Manually checking web dashboards or guessing limits</td>
+          <td class="highlight-col"><strong>Reads Claude Code status metrics automatically from your local CLI</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Model Awareness</strong></td>
+          <td>No visibility into how models drain quota</td>
+          <td class="highlight-col"><strong>Visual feedback highlights token burn across Opus, Sonnet and Haiku</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Proactive Alerts</strong></td>
+          <td>Finding out you are locked out only when a prompt fails</td>
+          <td class="highlight-col"><strong>Gentle native chime or banner alert before your quota runs dry</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Privacy & Setup</strong></td>
+          <td>Complex API keys and cloud account sign-ins</td>
+          <td class="highlight-col"><strong>Zero API keys required; reads local terminal session output safely</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 <section class="card">
   <h2>Prywatność w jednym akapicie</h2>
   <p>Usagette nie ma dostępu do sieci, konta ani śledzenia, a nic nie opuszcza Twojego Maca. Czyta jeden plik, który zapisuje jej skrypt paska stanu, w folderze <code>.claude</code>, z którego pozwolisz jej korzystać. Pełna <a href="privacy.html">polityka prywatności</a> mówi to samo, obszerniej.</p>
